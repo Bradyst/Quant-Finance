@@ -1,0 +1,9 @@
+#ignore data
+data/
+
+#python cache
+__pycache__/
+*.pyc
+
+#VS code
+.vscode/
