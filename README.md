@@ -10,10 +10,10 @@ I imagine minimal difficulty with accessing this data, but missing data would be
 
 Major milestones (requirements):
 
-Milestone 1 - Data collection
+Milestone 1 - Data collection✅
 This step focuses on collecting portfolio information from a user, cleaning it, and computing basic statistics such as daily returns.
 
-Milestone 2 - Risk analysis
+Milestone 2 - Risk analysis✅
 Portfolio-level risk metrics are set up and calculated. Information such as volatility, correlations, and the Sharpe ratio will be returned to the user in some form.
 
 Milestone 3 - UI polish
@@ -22,4 +22,6 @@ Ensure metrics and portfolio analysis are beginner-friendly, and each metric is 
 Finished product:
 End-to-end functionality that prompts a user for portfolio information, returns relevant metrics, and gives explanations for each.
 
-
+TO RUN:
+pip install -r requirements.txt
+python app.py

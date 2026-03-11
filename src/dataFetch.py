@@ -1,7 +1,7 @@
 """Data fetching using yfinance"""
 import pandas as pd
 import yfinance as yf
-from yfinance import tickers
+
 
 
 def fetch_close(tickers, period = "5y"):

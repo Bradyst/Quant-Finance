@@ -1,5 +1,6 @@
-#ignore data
-data/
+#ignore data but keep data folder
+data/*
+!data/.gitkeep
 
 #python cache
 __pycache__/
