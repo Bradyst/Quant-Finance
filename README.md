@@ -22,6 +22,15 @@ Ensure metrics and portfolio analysis are beginner-friendly, and each metric is 
 Finished product:
 End-to-end functionality that prompts a user for portfolio information, returns relevant metrics, and gives explanations for each.
 
-TO RUN:
+NOTE BEFORE RUNNING:
+Ensure you are in the Quant-Finance directory in terminal before running the following commands.
+
+TO RUN in terminal:
 pip install -r requirements.txt
 python app.py
+
+TO RUN GUI:
+pip install -r requirements.txt
+python gui.py
+
+The GUI will open another app on your desktop, click on this to view the GUI. It should be called python3.13.

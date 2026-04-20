@@ -1,4 +1,4 @@
-"""Main script
+"""Main script front-end for terminal-based portfolio risk analysis
 
 MILESTONE 1 FEATURES:
 Prompts user
