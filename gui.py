@@ -5,7 +5,7 @@ various formats.
 """
 
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
 import threading
 import sys
 import os
@@ -175,7 +175,17 @@ class PortfolioApp:
             activebackground=PRIMARY_H, activeforeground="white",
             relief="flat", cursor="hand2", padx=14, pady=10,
         )
-        self.btn_run.pack(fill="x", pady=(0, 12))
+        self.btn_run.pack(fill="x", pady=(0, 8))
+
+        #export csv button (disabled until analysis completes)
+        self.btn_export = tk.Button(
+            wrap, text="⬇  Export CSV", command=self._export_csv,
+            font=(FONT, 11), fg="white", bg="#334155",
+            activebackground="#475569", activeforeground="white",
+            relief="flat", cursor="hand2", padx=14, pady=8,
+            state="disabled",
+        )
+        self.btn_export.pack(fill="x", pady=(0, 12))
 
         #status
         self.var_status = tk.StringVar(value="Ready")
@@ -315,6 +325,7 @@ class PortfolioApp:
     #run analysis
     def _run(self):
         self.btn_run.config(state="disabled", text="Analyzing…")
+        self.btn_export.config(state="disabled")
         self._set_status("Fetching data from Yahoo Finance…")
         threading.Thread(target=self._analysis_worker, daemon=True).start()
 
@@ -396,6 +407,7 @@ class PortfolioApp:
         self._set_status(
             f"Analysis complete — {r['summary']['num_days']:,} trading days.", GREEN)
         self.btn_run.config(state="normal", text="▶  Run Analysis")
+        self.btn_export.config(state="normal")
 
     #cumulative returns tab
     def _tab_returns(self, r):
@@ -664,6 +676,35 @@ class PortfolioApp:
                 tk.Label(rf2, text=f"{val:.3f}", font=(FONT, 9),
                          fg=fg, bg=bg, width=cw, anchor="center", padx=4
                          ).pack(side="left")
+
+    #export csv function for all relevant dataframes
+    def _export_csv(self):
+        if not self._results:
+            return
+        export_dir = filedialog.askdirectory(title="Select Export Folder")
+        if not export_dir:
+            return
+
+        r    = self._results
+        risk = r["risk"]
+        os.makedirs(export_dir, exist_ok=True)
+
+        r["prices"].to_csv(os.path.join(export_dir, "prices_clean.csv"), index=True)
+        r["returns"].to_csv(os.path.join(export_dir, "daily_returns.csv"), index=True)
+        r["port_ret"].to_frame("portfolio_return").to_csv(
+            os.path.join(export_dir, "portfolio_returns.csv"), index=True)
+        r["portfolio"].reset_index().to_csv(
+            os.path.join(export_dir, "portfolio_input_clean.csv"), index=False)
+        risk["correlation_matrix"].to_csv(
+            os.path.join(export_dir, "correlation_matrix.csv"), index=True)
+        risk["covariance_matrix"].to_csv(
+            os.path.join(export_dir, "covariance_matrix.csv"), index=True)
+        risk["asset_volatility"].to_frame("annualized_volatility").to_csv(
+            os.path.join(export_dir, "asset_volatility.csv"), index=True)
+
+        self._set_status(f"Exported 7 CSVs to {export_dir}", GREEN)
+        messagebox.showinfo("Export Complete",
+                            f"7 CSV files saved to:\n{export_dir}")
 
 
 #entry point

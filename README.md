@@ -20,7 +20,10 @@ Milestone 3 - UI polish
 Ensure metrics and portfolio analysis are beginner-friendly, and each metric is explained. Potential charts can be viewed to visualize historical data to give meaning to the calculated numbers.
 
 Finished product:
-End-to-end functionality that prompts a user for portfolio information, returns relevant metrics, and gives explanations for each.
+As of 5/1/2026, the app is feature-complete with a full GUI and terminal interface. The app supports portfolio analysis, risk metrics, visualizations, and a recently added (after milestone 4) csv export feauture for the GUI version.
+
+
+
 
 NOTE BEFORE RUNNING:
 Ensure you are in the Quant-Finance directory in terminal before running the following commands.
